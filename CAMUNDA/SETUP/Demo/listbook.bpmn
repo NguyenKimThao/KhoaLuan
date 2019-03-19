@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:kltn="http://magic" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0awyppk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.12.0-alpha-3">
+  <bpmn:process id="Process_ListBook" name="List Book" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_0cfgaxm">
+      <bpmn:outgoing>SequenceFlow_1hqw3rm</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:dataStoreReference id="DataStoreReference_0b22n9z">
+      <bpmn:extensionElements>
+        <kltn:databaseInformation databaseType="mysql" server="localhost" username="root" password="admin" database="library" />
+      </bpmn:extensionElements>
+    </bpmn:dataStoreReference>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0d4umhk">
+      <bpmn:incoming>SequenceFlow_04vlq4w</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1i18urq</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0crvahq</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="RemoveBook" name="Remove Book" camunda:typeSubmit="button">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="id" label="Id" type="long" formItem="Paragraph" />
+          <camunda:formField id="name" label="Name" type="string" />
+          <camunda:formField id="author" label="Author" type="string" formItem="Paragraph" />
+          <camunda:formField id="catergory" label="Catergory" type="string" formItem="Paragraph" formItemChoices="catergories" formItemValue="id" formItemText="name" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0crvahq</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_188j66x</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0eu8ehn">
+        <bpmn:extensionElements>
+          <kltn:dataCondition action="delete" databaseTable="book" condition="id=${id}" />
+        </bpmn:extensionElements>
+        <bpmn:targetRef>DataStoreReference_0b22n9z</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_0030jpf">
+      <bpmn:incoming>SequenceFlow_188j66x</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1j70wi9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="UserTask_1wqsc88" name="List Book" camunda:typeSubmit="normal">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="bookInfo" label="Book" type="string" formItem="Table" formItemChoices="book" formItemValue="{name};{author};{price};[Paragraph,catergory,catergories];[Button,Update,action,edit];[Button,Remove,action,remove]" formItemText="Name;Author;Price;Catergory;Action" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1hqw3rm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_04vlq4w</bpmn:outgoing>
+      <bpmn:property id="Property_0pmgpt4" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_15e0yil">
+        <bpmn:extensionElements>
+          <kltn:dataCondition action="select" typeOutput="2" databaseTable="book" />
+          <kltn:dataStoreFields>
+            <kltn:field column="id" variable="id" type="int(11)" />
+            <kltn:field column="name" variable="name" type="varchar(100)" />
+            <kltn:field column="author" variable="author" type="varchar(100)" />
+            <kltn:field column="catergory" variable="catergory" type="varchar(45)" />
+            <kltn:field column="price" variable="price" type="varchar(45)" />
+          </kltn:dataStoreFields>
+        </bpmn:extensionElements>
+        <bpmn:sourceRef>DataStoreReference_0b22n9z</bpmn:sourceRef>
+        <bpmn:targetRef>Property_0pmgpt4</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="DataInputAssociation_0e9fqv8">
+        <bpmn:extensionElements>
+          <kltn:dataCondition databaseTable="catergories" action="select" typeOutput="3" keymultirow="id" textmultirow="name" />
+          <kltn:dataStoreFields>
+            <kltn:field column="id" variable="id" type="varchar(10)" />
+            <kltn:field column="name" variable="name" type="varchar(45)" />
+          </kltn:dataStoreFields>
+        </bpmn:extensionElements>
+        <bpmn:sourceRef>DataStoreReference_0b22n9z</bpmn:sourceRef>
+        <bpmn:targetRef>Property_0pmgpt4</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:userTask>
+    <bpmn:userTask id="UpdateBook" name="Update Book" camunda:typeSubmit="button">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="name" label="Name" type="string" />
+          <camunda:formField id="price" label="Price" type="string" formItem="Input" />
+          <camunda:formField id="catergory" label="Catergory" type="long" formItem="Select" formItemChoices="catergories" formItemValue="id" formItemText="name" />
+          <camunda:formField id="author" label="Author" type="string" formItem="Input" />
+          <camunda:formField id="id" label="Id" type="long" formItem="Paragraph" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1i18urq</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1j70wi9</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_01tn5ea">
+        <bpmn:extensionElements>
+          <kltn:dataCondition action="update" databaseTable="book" condition="id=${id}" />
+          <kltn:dataStoreFields>
+            <kltn:field column="name" variable="name" type="varchar(100)" />
+            <kltn:field column="author" variable="author" type="varchar(100)" />
+            <kltn:field column="catergory" variable="catergory" type="varchar(45)" />
+            <kltn:field column="price" variable="price" type="varchar(45)" />
+          </kltn:dataStoreFields>
+        </bpmn:extensionElements>
+        <bpmn:targetRef>DataStoreReference_0b22n9z</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1hqw3rm" sourceRef="StartEvent_0cfgaxm" targetRef="UserTask_1wqsc88" />
+    <bpmn:sequenceFlow id="SequenceFlow_04vlq4w" sourceRef="UserTask_1wqsc88" targetRef="ExclusiveGateway_0d4umhk" />
+    <bpmn:sequenceFlow id="SequenceFlow_1i18urq" name="on edit" sourceRef="ExclusiveGateway_0d4umhk" targetRef="UpdateBook">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${action=='edit'}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0crvahq" name="on remove" sourceRef="ExclusiveGateway_0d4umhk" targetRef="RemoveBook">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${action=='remove'}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_188j66x" sourceRef="RemoveBook" targetRef="EndEvent_0030jpf" />
+    <bpmn:sequenceFlow id="SequenceFlow_1j70wi9" sourceRef="UpdateBook" targetRef="EndEvent_0030jpf" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_ListBook">
+      <bpmndi:BPMNShape id="StartEvent_0cfgaxm_di" bpmnElement="StartEvent_0cfgaxm">
+        <dc:Bounds x="287" y="296" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="215" y="332" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0b22n9z_di" bpmnElement="DataStoreReference_0b22n9z">
+        <dc:Bounds x="821" y="176" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="756" y="154" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0d4umhk_di" bpmnElement="ExclusiveGateway_0d4umhk" isMarkerVisible="true">
+        <dc:Bounds x="591" y="289" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="526" y="267" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0iahkel_di" bpmnElement="RemoveBook">
+        <dc:Bounds x="796" y="384" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0030jpf_di" bpmnElement="EndEvent_0030jpf">
+        <dc:Bounds x="1095" y="406" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1023" y="446" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1wqsc88_di" bpmnElement="UserTask_1wqsc88">
+        <dc:Bounds x="412" y="274" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1kdjisk_di" bpmnElement="UpdateBook">
+        <dc:Bounds x="796" y="274" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1hqw3rm_di" bpmnElement="SequenceFlow_1hqw3rm">
+        <di:waypoint x="323" y="314" />
+        <di:waypoint x="412" y="314" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="323.5" y="293" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_01tn5ea_di" bpmnElement="DataOutputAssociation_01tn5ea">
+        <di:waypoint x="845" y="274" />
+        <di:waypoint x="844" y="226" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0eu8ehn_di" bpmnElement="DataOutputAssociation_0eu8ehn">
+        <di:waypoint x="892" y="386" />
+        <di:waypoint x="1008" y="386" />
+        <di:waypoint x="1008" y="201" />
+        <di:waypoint x="871" y="201" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_15e0yil_di" bpmnElement="DataInputAssociation_15e0yil">
+        <di:waypoint x="821" y="206" />
+        <di:waypoint x="503" y="274" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_04vlq4w_di" bpmnElement="SequenceFlow_04vlq4w">
+        <di:waypoint x="512" y="314" />
+        <di:waypoint x="591" y="314" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="507.5" y="293" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1i18urq_di" bpmnElement="SequenceFlow_1i18urq">
+        <di:waypoint x="641" y="314" />
+        <di:waypoint x="796" y="314" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="704.5" y="293" width="33" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0crvahq_di" bpmnElement="SequenceFlow_0crvahq">
+        <di:waypoint x="616" y="339" />
+        <di:waypoint x="616" y="424" />
+        <di:waypoint x="796" y="424" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="627" y="377.5" width="52" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_188j66x_di" bpmnElement="SequenceFlow_188j66x">
+        <di:waypoint x="896" y="424" />
+        <di:waypoint x="1095" y="424" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="951.5" y="403" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1j70wi9_di" bpmnElement="SequenceFlow_1j70wi9">
+        <di:waypoint x="896" y="314" />
+        <di:waypoint x="956" y="314" />
+        <di:waypoint x="956" y="424" />
+        <di:waypoint x="1095" y="424" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="926" y="363" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0e9fqv8_di" bpmnElement="DataInputAssociation_0e9fqv8">
+        <di:waypoint x="821" y="205" />
+        <di:waypoint x="457" y="269" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

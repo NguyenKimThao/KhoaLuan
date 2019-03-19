@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:kltn="http://magic" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_079u825" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.12.0-alpha-3">
+  <bpmn:process id="Process_AddStudent" name="AddStudent" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1auoj4n</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1auoj4n" sourceRef="StartEvent_1" targetRef="AddStudent" />
+    <bpmn:endEvent id="EndEvent_0rp35vd">
+      <bpmn:incoming>SequenceFlow_134w06f</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_134w06f" sourceRef="AddStudent" targetRef="EndEvent_0rp35vd" />
+    <bpmn:dataStoreReference id="DataStoreReference_1qm6wch">
+      <bpmn:extensionElements>
+        <kltn:databaseInformation databaseType="mysql" server="localhost" username="root" password="admin" database="library" />
+      </bpmn:extensionElements>
+    </bpmn:dataStoreReference>
+    <bpmn:userTask id="AddStudent" name="AddStudent" camunda:typeSubmit="button">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="studentId" label="StudentID" type="long" formItem="Input" />
+          <camunda:formField id="name" label="Name" type="string" formItem="Input" />
+          <camunda:formField id="birthdate" label="Date" type="date" formItem="Input" />
+          <camunda:formField id="address" label="Address" type="string" formItem="Input" />
+          <camunda:formField id="state" label="State" type="boolean" formItem="Input" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1auoj4n</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_134w06f</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0eo6px5">
+        <bpmn:extensionElements>
+          <kltn:dataCondition action="insert" databaseTable="student" condition="" />
+          <kltn:dataStoreFields>
+            <kltn:field column="studentId" variable="studentId" type="int(11)" />
+            <kltn:field column="name" variable="name" type="varchar(100)" />
+            <kltn:field column="birthdate" variable="birthdate" type="datetime" />
+            <kltn:field column="address" variable="address" type="varchar(45)" />
+            <kltn:field column="state" variable="state" type="tinyint(4)" />
+          </kltn:dataStoreFields>
+        </bpmn:extensionElements>
+        <bpmn:targetRef>DataStoreReference_1qm6wch</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_AddStudent">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1auoj4n_di" bpmnElement="SequenceFlow_1auoj4n">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="259" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="234" y="99" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0rp35vd_di" bpmnElement="EndEvent_0rp35vd">
+        <dc:Bounds x="409" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="427" y="142" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_134w06f_di" bpmnElement="SequenceFlow_134w06f">
+        <di:waypoint x="359" y="120" />
+        <di:waypoint x="409" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="384" y="99" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataStoreReference_1qm6wch_di" bpmnElement="DataStoreReference_1qm6wch">
+        <dc:Bounds x="394" y="310" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="419" y="364" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_13ck6ii_di" bpmnElement="AddStudent">
+        <dc:Bounds x="259" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0eo6px5_di" bpmnElement="DataOutputAssociation_0eo6px5">
+        <di:waypoint x="334" y="160" />
+        <di:waypoint x="426" y="310" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

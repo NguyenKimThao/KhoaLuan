@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:kltn="http://magic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1uvb4ey" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.12.0-alpha-3">
+  <bpmn:process id="Process_BorrowBook" name="BorrowBook" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1nw4ify</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="BookName" name="Book Name Entor" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="name" label="Name" type="string" formItem="Input" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1nw4ify</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_034oq15</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zyzgd6</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1nw4ify" sourceRef="StartEvent_1" targetRef="BookName" />
+    <bpmn:dataStoreReference id="DataStoreReference_1frrcg8">
+      <bpmn:extensionElements>
+        <kltn:databaseInformation databaseType="mysql" server="localhost" username="root" password="admin" database="library" />
+      </bpmn:extensionElements>
+    </bpmn:dataStoreReference>
+    <bpmn:sequenceFlow id="SequenceFlow_0zyzgd6" sourceRef="BookName" targetRef="ChooseBook" />
+    <bpmn:userTask id="ChooseBook" name="Show And Choose Book">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="bookchooes" label="ChooceBook" type="string" formItem="Table" formItemChoices="book" formItemText="Name;Author;Price;Catergory;Action" formItemValue="{name};{author};{price};[Paragraph,catergory,catergories];[Button,Action,action,choose]" />
+          <camunda:formField id="action" label="Back" type="string" defaultValue="back" formItem="Button" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0zyzgd6</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0lfnqdt</bpmn:outgoing>
+      <bpmn:property id="Property_1j5wxga" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0uk2dld">
+        <bpmn:extensionElements>
+          <kltn:dataCondition action="query" typeOutput="2" execquery="select * from book where name = ${name}" nameVariables="book" />
+        </bpmn:extensionElements>
+        <bpmn:sourceRef>DataStoreReference_1frrcg8</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1j5wxga</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="DataInputAssociation_14g99zr">
+        <bpmn:extensionElements>
+          <kltn:dataCondition databaseTable="catergories" action="select" typeOutput="3" nameVariables="catergories" keymultirow="id" textmultirow="name" />
+          <kltn:dataStoreFields>
+            <kltn:field column="id" variable="id" type="varchar(10)" />
+            <kltn:field column="name" variable="name" type="varchar(45)" />
+          </kltn:dataStoreFields>
+        </bpmn:extensionElements>
+        <bpmn:sourceRef>DataStoreReference_1frrcg8</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1j5wxga</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1h3enzz" name="on choose">
+      <bpmn:incoming>SequenceFlow_0lfnqdt</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_034oq15</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_12u68s4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0lfnqdt" sourceRef="ChooseBook" targetRef="ExclusiveGateway_1h3enzz" />
+    <bpmn:sequenceFlow id="SequenceFlow_034oq15" sourceRef="ExclusiveGateway_1h3enzz" targetRef="BookName">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${action=="back"}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_12u68s4" sourceRef="ExclusiveGateway_1h3enzz" targetRef="UserInfo">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${action=="choose"}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="UserInfo" name="User Infor" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="studentId" label="StudentId" type="long" formItem="Input" />
+          <camunda:formField id="expiredDate" label="Expired" type="date" formItem="Input" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_12u68s4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_13bdw6j</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0gtpxdw">
+        <bpmn:extensionElements>
+          <kltn:dataCondition action="insert" databaseTable="borrow" />
+          <kltn:dataStoreFields>
+            <kltn:field column="bookId" variable="id" type="int(11)" />
+            <kltn:field column="studentId" variable="studentId" type="int(11)" />
+            <kltn:field column="expiredDate" variable="expiredDate" type="date" />
+          </kltn:dataStoreFields>
+        </bpmn:extensionElements>
+        <bpmn:targetRef>DataStoreReference_1frrcg8</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_1o5mf9r">
+      <bpmn:incoming>SequenceFlow_13bdw6j</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_13bdw6j" sourceRef="UserInfo" targetRef="EndEvent_1o5mf9r" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_BorrowBook">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="234" y="287" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="207" y="323" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1ydc73u_di" bpmnElement="BookName">
+        <dc:Bounds x="202" y="124" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1nw4ify_di" bpmnElement="SequenceFlow_1nw4ify">
+        <di:waypoint x="252" y="287" />
+        <di:waypoint x="252" y="204" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="222" y="239.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataStoreReference_1frrcg8_di" bpmnElement="DataStoreReference_1frrcg8">
+        <dc:Bounds x="389" y="280" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="369" y="334" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zyzgd6_di" bpmnElement="SequenceFlow_0zyzgd6">
+        <di:waypoint x="302" y="164" />
+        <di:waypoint x="347" y="164" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="279.5" y="143" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1qa9k7s_di" bpmnElement="ChooseBook">
+        <dc:Bounds x="347" y="124" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0uk2dld_di" bpmnElement="DataInputAssociation_0uk2dld">
+        <di:waypoint x="414" y="280" />
+        <di:waypoint x="414" y="204" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1h3enzz_di" bpmnElement="ExclusiveGateway_1h3enzz" isMarkerVisible="true">
+        <dc:Bounds x="496" y="139" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="495" y="198" width="51" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0lfnqdt_di" bpmnElement="SequenceFlow_0lfnqdt">
+        <di:waypoint x="447" y="164" />
+        <di:waypoint x="496" y="164" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="426.5" y="143" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_034oq15_di" bpmnElement="SequenceFlow_034oq15">
+        <di:waypoint x="521" y="139" />
+        <di:waypoint x="521" y="76" />
+        <di:waypoint x="252" y="76" />
+        <di:waypoint x="252" y="124" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="341.5" y="55" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_12u68s4_di" bpmnElement="SequenceFlow_12u68s4">
+        <di:waypoint x="546" y="164" />
+        <di:waypoint x="595" y="164" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="525.5" y="143" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1hk9gty_di" bpmnElement="UserInfo">
+        <dc:Bounds x="595" y="124" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0gtpxdw_di" bpmnElement="DataOutputAssociation_0gtpxdw">
+        <di:waypoint x="596" y="197" />
+        <di:waypoint x="439" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1o5mf9r_di" bpmnElement="EndEvent_1o5mf9r">
+        <dc:Bounds x="627" y="287" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="600" y="327" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_13bdw6j_di" bpmnElement="SequenceFlow_13bdw6j">
+        <di:waypoint x="645" y="204" />
+        <di:waypoint x="645" y="287" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="615" y="239.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_14g99zr_di" bpmnElement="DataInputAssociation_14g99zr">
+        <di:waypoint x="409" y="280" />
+        <di:waypoint x="397" y="219" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

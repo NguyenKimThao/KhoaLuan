@@ -1,0 +1,239 @@
+[
+    {
+        "name": "Heading",
+        "code": "<h1>Heading</h1>",
+        "group": "TEXT"
+    },
+    {
+        "name": "Paragraph",
+        "code": "<p>Paragraph</p>",
+        "group": "TEXT"
+    },
+    {
+        "name": "Alert",
+        "code": "<div class=\"alert alert-success\" role=\"alert\"><span><strong>Alert</strong> text.</span></div>",
+        "group": "TEXT"
+    },
+    {
+        "name": "Blockquote",
+        "code": "<blockquote>\r\n <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>\r\n<footer>Someone famous</footer>\r\n </blockquote>",
+        "group": "TEXT"
+    },
+    {
+        "name": "Small",
+        "code": "<small>Text</small>",
+        "group": "TEXT"
+    },
+    {
+        "name": "Bold",
+        "code": "<strong>Bold</strong>",
+        "group": "TEXT"
+    },
+    {
+        "name": "Italic",
+        "code": "<em>Italic</em>",
+        "group": "TEXT"
+    },
+    {
+        "name": "Span",
+        "code": "<span>Text</span>",
+        "group": "TEXT"
+    },
+
+
+    {
+        "name": "Image",
+        "code": "<img />",
+        "group": "IMAGE"
+    },
+    {
+        "name": "Icon",
+        "code": "<i class=\"glyphicon glyphicon-star\"></i>",
+        "group": "IMAGE"
+    },
+    {
+        "name": "Carousel",
+        "code": "<div>Dai qua khong Generate</div>",
+        "group": "IMAGE"
+    },
+    {
+        "name": "Figure",
+        "code": "<figure></figure>",
+        "group": "IMAGE"
+    },
+
+
+    {
+        "name": "Button",
+        "code": "<button class=\"btn btn-default\" type=\"button\">Button</button>",
+        "group": "CONTROLS"
+    },
+    {
+        "name": "Split Button",
+        "code": "<div class=\"btn-group\">\r\n<button class=\"btn btn-default\" type=\"button\">Button </button>\r\n<button class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" type=\"button\"><span class=\"caret\"></span></button>\r\n<ul class=\"dropdown-menu\" role=\"menu\">\r\n<li role=\"presentation\"><a href=\"#\">First Item</a></li>\r\n<li role=\"presentation\"><a href=\"#\">Second Item</a></li>\r\n<li role=\"presentation\"><a href=\"#\">Third Item</a></li>\r\n</ul>\r\n</div>",
+        "group": "CONTROLS"
+    },
+    {
+        "name": "Button Group",
+        "code": "<div class=\"btn-group\" role=\"group\">\r\n<button class=\"btn btn-default\" type=\"button\">Button 1</button>\r\n<button class=\btn btn-default\" type=\"button\">Button 2</button>\r\n</div>",
+        "group": "CONTROLS"
+    },
+    {
+        "name": "Button Toolbar",
+        "code": "<div class=\"btn-toolbar\">\r\n<div class=\"btn-group\" role=\"group\">\r\n<button class=\"btn btn-default\" type=\"button\">Button 1</button>\r\n<button class=\"btn btn-default\" type=\"button\">Button 2</button>\r\n</div>\r\n<div class=\"btn-group\" role=\"group\">\r\n<button class=\"btn btn-default\" type=\"button\">Button 1</button>\r\n<button class=\"btn btn-default\" type=\"button\">Button 2</button>\r\n</div>\r\n</div>",
+        "group": "CONTROLS"
+    },
+    {
+        "name": "Dropdown",
+        "code": "<div class=\"dropdown\">\r\n<button class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" type=\"button\">Dropdown <span class=\"caret\"></span></button>\r\n<ul class=\"dropdown-menu\" role=\"menu\">\r\n<li role=\"presentation\"><a href=\"#\">First Item</a></li>\r\n<li role=\"presentation\"><a href=\"#\">Second Item</a></li>\r\n<li role=\"presentation\"><a href=\"#\">Third Item</a></li>\r\n</ul>\r\n</div>",
+        "group": "CONTROLS"
+    },
+    {
+        "name": "Link",
+        "code": "<a href=\"#\">Link</a>",
+        "group": "CONTROLS"
+    },
+
+
+    {
+        "name": "Row",
+        "code": "<div class=\"row\"></div>",
+        "group": "GRID"
+    },
+    {
+        "name": "Column",
+        "code": "<div class=\"col-md-12\"></div>",
+        "group": "GRID"
+    },
+    {
+        "name": "Clearfix",
+        "code": "<div class=\"clearfix\"></div>",
+        "group": "GRID"
+    },
+
+
+    {
+        "name": "Container",
+        "code": "<div class=\"container\"></div>",
+        "group": "CONTAINERS"
+    },
+    {
+        "name": "Panel",
+        "code": "<div class=\"panel panel-default\">\r\n<div class=\"panel-heading\"><h3 class=\"panel-title\">Panel Heading</h3></div>\r\n<div class=\"panel-body\"><span>Panel Body</span></div></div>",
+        "group": "CONTAINERS"
+    },
+    {
+        "name": "Tabs",
+        "code": "<div>\r\n<ul class=\"nav nav-tabs\">\r\n<li class=\"active\"><a href=\"#tab-1\" role=\"tab\" data-toggle=\"tab\">First Tab</a></li>\r\n<li><a href=\"#tab-2\" role=\"tab\" data-toggle=\"tab\">Second Tab</a></li>\r\n<li><a href=\"#tab-3\" role=\"tab\" data-toggle=\"tab\">Third Tab</a></li>\r\n</ul>\r\n<div class=\"tab-content\">\r\n<div class=\"tab-pane active\" role=\"tabpanel\" id=\"tab-1\">\r\n<p>First tab content.</p>\r\n</div>\r\n<div class=\"tab-pane\" role=\"tabpanel\" id=\"tab-2\">\r\n<p>Second tab content.</p>\r\n</div>\r\n<div class=\"tab-pane\" role=\"tabpanel\" id=\"tab-3\">\r\n<p>Third tab content.</p>\r\n</div>\r\n</div>\r\n</div>",
+        "group": "CONTAINERS"
+    },
+    
+    {
+        "name": "Collapse",
+        "code": "<div><a class=\"btn btn-default\" data-toggle=\"collapse\" aria-expanded=\"false\" aria-controls=\"collapse-1\" role=\"button\" href=\"#collapse-1\">Show Content</a>\r\n<div class=\"collapse\" id=\"collapse-1\">\r\n<p>Collapse content.</p>\r\n</div>\r\n</div>",
+        "group": "CONTAINERS"
+    },
+    {
+        "name": "List Group",
+        "code": "<ul class=\"list-group\">\r\n<li class=\"list-group-item\"><span>List Group Item 1</span></li>\r\n<li class=\"list-group-item\"><span>List Group Item 2</span></li>\r\n<li class=\"list-group-item\"><span>List Group Item 3</span></li>\r\n</ul>",
+        "group": "CONTAINERS"
+    },
+    {
+        "name": "Media",
+        "code": "<div class=\"media\">\r\n<div class=\"media-left\">\r\n<a><img class=\"media-object\" /></a>\r\n</div>\r\n<div class=\"media-body\">\r\n<h4 class=\"media-heading\">Media Heading</h4>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus nisl ac diam feugiat, non vestibulum libero posuere. Vivamus pharetra leo non nulla egestas, nec malesuada orci finibus. </p>\r\n</div>\r\n</div>",
+        "group": "CONTAINERS"
+    },
+    {
+        "name": "Jumbotron",
+        "code": "<div class=\"jumbotron\">\r\n<h1>Heading text</h1>\r\n<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>\r\n<p><a class=\"btn btn-default\" role=\"button\"href=\"#\">Learn more</a></p>\r\n</div>",
+        "group": "CONTAINERS"
+    },
+    {
+        "name": "Thumbnail",
+        "code": "<div class=\"thumbnail\"><img />\r\n<div class=\"caption\">\r\n<h3>Thumbnail label</h3>\r\n<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>\r\n</div>\r\n</div>",
+        "group": "CONTAINERS"
+    },
+    {
+        "name": "Well",
+        "code": "<div class=\"well\"><span>Text of the well</span></div>",
+        "group": "CONTAINERS"
+    },
+    {
+        "name": "List",
+        "code": "<ul>\r\n<li>Item 1</li>\r\n<li>Item 2</li>\r\n<li>Item 3</li>\r\n<li>Item 4</li>\r\n</ul>",
+        "group": "CONTAINERS"
+    },
+    {
+        "name": "Div",
+        "code": "<div></div>",
+        "group": "CONTAINERS"
+    },
+
+
+    {
+        "name": "Navbar",
+        "code": "<nav class=\"navbar navbar-default\">\\r\n<div class=\"container-fluid\">\r\n<div class=\"navbar-header\"><a class=\"navbar-brand navbar-link\" href=\"#\">Brand</a>\r\n<button class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navcol-1\"><span class=\"sr-only\">Toggle navigation</span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span></button>\r\n</div>\r\n<div class=\"collapse navbar-collapse\" id=\"navcol-1\">\r\n<ul class=\"nav navbar-nav\">\r\n<li class=\"active\" role=\"presentation\"><a href=\"#\">First Item</a></li>\r\n<li role=\"presentation\"><a href=\"#\">Second Item</a></li>\r\n<li role=\"presentation\"><a href=\"#\">Third Item</a></li>\r\n</ul>\r\n</div>\r\n</div>\r\n</nav>",
+        "group": "PAGE"
+    },
+    {
+        "name": "Nav",
+        "code": "<ul class=\"nav nav-tabs\">\r\n<li class=\"active\"><a href=\"#\">First Item</a></li>\r\n<li><a href=\"#\">Second Item</a></li>\r\n<li><a href=\"#\">Third Item</a></li>\r\n</ul>",
+        "group": "PAGE"
+    },
+    {
+        "name": "Page Header",
+        "code": "<div class=\"page-header\">\r\n<h1>Page header <small>Subtext for header</small></h1></div>",
+        "group": "PAGE"
+    },
+    {
+        "name": "Header",
+        "code": "<header></header>",
+        "group": "PAGE"
+    },
+    {
+        "name": "Footer",
+        "code": "<footer></footer>",
+        "group": "PAGE"
+    },
+    {
+        "name": "Hgroup",
+        "code": "<hgroup></hgroup>",
+        "group": "PAGE"
+    },
+    {
+        "name": "Section",
+        "code": "<section></section>",
+        "group": "PAGE"
+    },
+    {
+        "name": "Article",
+        "code": "<article></article>",
+        "group": "PAGE"
+    },
+    {
+        "name": "Aside",
+        "code": "<aside></aside>",
+        "group": "PAGE"
+    },
+
+
+    {
+        "name": "Pagination",
+        "code": "<nav>\r\n<ul class=\"pagination\">\r\n<li><a aria-label=\"Previous\"><span aria-hidden=\"true\">«</span></a></li>\r\n<li><a>1</a></li>\r\n<li><a>2</a></li>\r\n<li><a>3</a></li>\r\n<li><a>4</a></li>\r\n<li><a>5</a></li>\r\n<li><a aria-label=\"Next\"><span aria-hidden=\"true\">»</span></a></li>\r\n</ul>\r\n</nav>",
+        "group": "PAGINATION"
+    },
+    {
+        "name": "Pager",
+        "code": "<nav>\r\n<ul class=\"pager\">\r\n<li class=\"previous\"><a href=\"#\">Older</a></li>\r\n<li class=\"next\"><a href=\"#\">Newer</a></li>\r\n</ul>\r\n</nav>",
+        "group": "PAGINATION"
+    },
+
+
+    {
+        "name": "Table",
+        "code": "<div class=\"table-responsive\">\r\n<table class=\"table\">\r\n<thead>\r\n<tr>\r\n<th>Column 1</th>\r\n<th>Column 2</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Cell 1</td>\r\n<td>Cell 2</td>\r\n</tr>\r\n<tr>\r\n<td>Cell 3</td>\r\n<td>Cell 4</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</div>",
+        "group": "TABLE"
+    }
+    
+
+]

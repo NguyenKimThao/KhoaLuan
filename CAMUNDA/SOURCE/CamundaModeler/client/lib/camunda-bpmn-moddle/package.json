@@ -1,0 +1,81 @@
+{
+  "_args": [
+    [
+      "camunda-bpmn-moddle@0.13.0",
+      "E:\\New folder (7)\\camunda-modeler-master\\client"
+    ]
+  ],
+  "_from": "camunda-bpmn-moddle@0.13.0",
+  "_id": "camunda-bpmn-moddle@0.13.0",
+  "_inBundle": false,
+  "_integrity": "sha1-j+MTsG8pWBJvmMe3cvWWLDwkb/M=",
+  "_location": "/camunda-bpmn-moddle",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "camunda-bpmn-moddle@0.13.0",
+    "name": "camunda-bpmn-moddle",
+    "escapedName": "camunda-bpmn-moddle",
+    "rawSpec": "0.13.0",
+    "saveSpec": null,
+    "fetchSpec": "0.13.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/camunda-bpmn-moddle/-/camunda-bpmn-moddle-0.13.0.tgz",
+  "_spec": "0.13.0",
+  "_where": "E:\\New folder (7)\\camunda-modeler-master\\client",
+  "author": {
+    "name": "Nico Rehwaldt",
+    "url": "https://github.com/nikku"
+  },
+  "bugs": {
+    "url": "https://github.com/camunda/camunda-bpmn-moddle/issues"
+  },
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "description": "Camunda moddle extensions for BPMN 2.0",
+  "devDependencies": {
+    "async": "^1.5.0",
+    "bpmn-moddle": "^0.14.0",
+    "chai": "^1.9.1",
+    "eslint": "^2.11.1",
+    "eslint-plugin-mocha": "^2.2.0",
+    "glob": "^6.0.1",
+    "grunt": "^0.4.2",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-watch": "^0.5.0",
+    "grunt-eslint": "^18.1.0",
+    "grunt-mocha-test": "^0.11.0",
+    "grunt-release": "^0.13.0",
+    "jsondiffpatch": "^0.1.4",
+    "load-grunt-tasks": "^0.3.0",
+    "lodash": "^3.0.0",
+    "xsd-schema-validator": "^0.3.0"
+  },
+  "homepage": "https://github.com/camunda/camunda-bpmn-moddle#readme",
+  "keywords": [
+    "bpmn",
+    "moddle",
+    "bpmn20",
+    "camunda",
+    "meta-model"
+  ],
+  "license": "MIT",
+  "name": "camunda-bpmn-moddle",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camunda/camunda-bpmn-moddle.git"
+  },
+  "scripts": {
+    "all": "grunt",
+    "test": "grunt test"
+  },
+  "version": "0.13.0"
+}

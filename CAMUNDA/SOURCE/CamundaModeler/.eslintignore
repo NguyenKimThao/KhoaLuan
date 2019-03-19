@@ -1,0 +1,6 @@
+client/node_modules/
+distro/
+client/lib/
+app/
+docs/
+public/

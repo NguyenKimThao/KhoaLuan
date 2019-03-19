@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:kltn="http://magic" id="Definitions_0z0h1gg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.12.0-alpha-3">
+  <bpmn:process id="Process_Login" name="Login" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1db44jp</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1db44jp" sourceRef="StartEvent_1" targetRef="Task_Login" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1m6uhp3">
+      <bpmn:incoming>SequenceFlow_0hmk8wo</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1c32ajm</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0tq6swy</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_0ezkgh6">
+      <bpmn:incoming>SequenceFlow_1k0qr8w</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Task_Login" name="Login" camunda:typeSubmit="button">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="username" label="Username" type="string" formItem="Input" />
+          <camunda:formField id="pass" label="Password" type="string" formItem="Input" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1db44jp</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1c32ajm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1m5w0ze</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1m5w0ze" sourceRef="Task_Login" targetRef="CheckLogin" />
+    <bpmn:userTask id="CheckLogin" name="CheckLogin" camunda:typeSubmit="auto">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="checkLogin" label="Check Login" type="string" defaultValue="Wating check login" formItem="Paragraph" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1m5w0ze</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0hmk8wo</bpmn:outgoing>
+      <bpmn:property id="Property_1cmwt18" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0psa65z">
+        <bpmn:extensionElements>
+          <kltn:dataCondition action="select" typeOutput="0" execquery="select  * form taikhoan where username=${username} and pas" databaseTable="taikhoan" condition="username= ${username} AND pass=${pass}" />
+          <kltn:dataStoreFields>
+            <kltn:field column="studentId" variable="studentId" type="int(11)" />
+          </kltn:dataStoreFields>
+        </bpmn:extensionElements>
+        <bpmn:sourceRef>DataStoreReference_0t0hlvh</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1cmwt18</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0hmk8wo" sourceRef="CheckLogin" targetRef="ExclusiveGateway_1m6uhp3" />
+    <bpmn:sequenceFlow id="SequenceFlow_1c32ajm" sourceRef="ExclusiveGateway_1m6uhp3" targetRef="Task_Login">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${count==0}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:dataStoreReference id="DataStoreReference_0t0hlvh">
+      <bpmn:extensionElements>
+        <kltn:databaseInformation databaseType="mysql" server="localhost" username="root" password="admin" database="library" />
+      </bpmn:extensionElements>
+    </bpmn:dataStoreReference>
+    <bpmn:userTask id="UserTask_1qhkc1f" name="Login" camunda:typeSubmit="auto">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="checkLogin" label="Login" type="string" defaultValue="Login secuess" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0tq6swy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1k0qr8w</bpmn:outgoing>
+      <bpmn:property id="Property_04mluvw" name="__targetRef_placeholder" />
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0tq6swy" sourceRef="ExclusiveGateway_1m6uhp3" targetRef="UserTask_1qhkc1f">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${count!=0}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1k0qr8w" sourceRef="UserTask_1qhkc1f" targetRef="EndEvent_0ezkgh6" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Login">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1db44jp_di" bpmnElement="SequenceFlow_1db44jp">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="315" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="262" y="99" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1m6uhp3_di" bpmnElement="ExclusiveGateway_1m6uhp3" isMarkerVisible="true">
+        <dc:Bounds x="590" y="221" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="650" y="240" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0ezkgh6_di" bpmnElement="EndEvent_0ezkgh6">
+        <dc:Bounds x="859" y="344" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="832" y="322" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1jmmnkg_di" bpmnElement="Task_Login">
+        <dc:Bounds x="315" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1m5w0ze_di" bpmnElement="SequenceFlow_1m5w0ze">
+        <di:waypoint x="415" y="120" />
+        <di:waypoint x="565" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="490" y="99" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1h7gecl_di" bpmnElement="CheckLogin">
+        <dc:Bounds x="565" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0hmk8wo_di" bpmnElement="SequenceFlow_0hmk8wo">
+        <di:waypoint x="615" y="160" />
+        <di:waypoint x="615" y="221" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="630" y="184.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1c32ajm_di" bpmnElement="SequenceFlow_1c32ajm">
+        <di:waypoint x="590" y="246" />
+        <di:waypoint x="353" y="246" />
+        <di:waypoint x="353" y="163" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="471.5" y="225" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataStoreReference_0t0hlvh_di" bpmnElement="DataStoreReference_0t0hlvh">
+        <dc:Bounds x="779" y="104" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="804" y="158" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0psa65z_di" bpmnElement="DataInputAssociation_0psa65z">
+        <di:waypoint x="779" y="129" />
+        <di:waypoint x="665" y="131" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1qhkc1f_di" bpmnElement="UserTask_1qhkc1f">
+        <dc:Bounds x="651" y="322" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0tq6swy_di" bpmnElement="SequenceFlow_0tq6swy">
+        <di:waypoint x="615" y="271" />
+        <di:waypoint x="615" y="362" />
+        <di:waypoint x="651" y="362" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="630" y="310.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1k0qr8w_di" bpmnElement="SequenceFlow_1k0qr8w">
+        <di:waypoint x="751" y="362" />
+        <di:waypoint x="859" y="362" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="805" y="341" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

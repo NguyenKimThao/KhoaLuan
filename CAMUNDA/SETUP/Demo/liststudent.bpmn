@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:kltn="http://magic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1j1ulwa" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.12.0-alpha-3">
+  <bpmn:process id="Process_ListStudent" name="List Student" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1jn8q33">
+      <bpmn:outgoing>SequenceFlow_1f6ctui</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="ListStudent" name="List Student" camunda:typeSubmit="normal">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="student" label="Student" type="string" formItem="Table" formItemChoices="students" formItemText="StudentId;Name;Address;Birthdate;Action" formItemValue="{studentId};{name};{address};{birthdate|date: &#39;dd/MM/yyyy&#39;};[Button,Update,action,edit];[Button,Remove,action,remove]" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1f6ctui</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ww5yxx</bpmn:outgoing>
+      <bpmn:property id="Property_1pfyykx" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_1hp0sv8" name="get student">
+        <bpmn:extensionElements>
+          <kltn:dataCondition databaseTable="student" action="select" typeOutput="2" nameVariables="students" />
+          <kltn:dataStoreFields>
+            <kltn:field column="studentId" variable="studentId" type="int(11)" />
+            <kltn:field column="name" variable="name" type="varchar(100)" />
+            <kltn:field column="address" variable="address" type="varchar(45)" />
+            <kltn:field column="birthdate" variable="birthdate" type="datetime" />
+          </kltn:dataStoreFields>
+        </bpmn:extensionElements>
+        <bpmn:sourceRef>DataStoreReference_14hd7sz</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1pfyykx</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:userTask>
+    <bpmn:dataStoreReference id="DataStoreReference_14hd7sz">
+      <bpmn:extensionElements>
+        <kltn:databaseInformation databaseType="mysql" server="localhost" username="root" password="admin" database="library" />
+      </bpmn:extensionElements>
+    </bpmn:dataStoreReference>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0g8mjdz">
+      <bpmn:incoming>SequenceFlow_0ww5yxx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zerjsn</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0guhok7</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="UpdateStudent" name="Update Student" camunda:typeSubmit="button">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="studentId" label="Student" type="long" formItem="Input" />
+          <camunda:formField id="name" label="Name" type="string" formItem="Input" />
+          <camunda:formField id="address" label="Address" type="string" formItem="Input" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0zerjsn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0m416hs</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0lwqt76">
+        <bpmn:extensionElements>
+          <kltn:dataCondition action="update" databaseTable="student" condition="studentId=${studentId}" />
+          <kltn:dataStoreFields>
+            <kltn:field column="name" variable="name" type="varchar(100)" />
+            <kltn:field column="address" variable="address" type="varchar(45)" />
+          </kltn:dataStoreFields>
+        </bpmn:extensionElements>
+        <bpmn:targetRef>DataStoreReference_14hd7sz</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTask_07tuo7q" name="Remove Student" camunda:typeSubmit="button">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="studentId" label="Student" type="long" formItem="Paragraph" />
+          <camunda:formField id="name" label="Name" type="string" formItem="Paragraph" />
+          <camunda:formField id="address" label="Address" type="string" formItem="Paragraph" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0guhok7</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_190f7dx</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0az2zc9">
+        <bpmn:extensionElements>
+          <kltn:dataCondition action="delete" databaseTable="student" condition="studentId=${studentId}" />
+        </bpmn:extensionElements>
+        <bpmn:targetRef>DataStoreReference_14hd7sz</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_12vbkno">
+      <bpmn:incoming>SequenceFlow_0m416hs</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_190f7dx</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1f6ctui" sourceRef="StartEvent_1jn8q33" targetRef="ListStudent" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ww5yxx" name="check" sourceRef="ListStudent" targetRef="ExclusiveGateway_0g8mjdz" />
+    <bpmn:sequenceFlow id="SequenceFlow_0zerjsn" name="on edit" sourceRef="ExclusiveGateway_0g8mjdz" targetRef="UpdateStudent">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${action=='edit'}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0guhok7" name="on remove" sourceRef="ExclusiveGateway_0g8mjdz" targetRef="UserTask_07tuo7q">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${action=='remove'}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0m416hs" sourceRef="UpdateStudent" targetRef="EndEvent_12vbkno" />
+    <bpmn:sequenceFlow id="SequenceFlow_190f7dx" sourceRef="UserTask_07tuo7q" targetRef="EndEvent_12vbkno" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_ListStudent">
+      <bpmndi:BPMNShape id="StartEvent_1jn8q33_di" bpmnElement="StartEvent_1jn8q33">
+        <dc:Bounds x="254" y="30" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="182" y="66" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0wbrqhm_di" bpmnElement="ListStudent">
+        <dc:Bounds x="379" y="8" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_14hd7sz_di" bpmnElement="DataStoreReference_14hd7sz">
+        <dc:Bounds x="788" y="-90" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="723" y="-112" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0g8mjdz_di" bpmnElement="ExclusiveGateway_0g8mjdz" isMarkerVisible="true">
+        <dc:Bounds x="558" y="23" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="538" y="1" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_07y1axv_di" bpmnElement="UpdateStudent">
+        <dc:Bounds x="763" y="8" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_07tuo7q_di" bpmnElement="UserTask_07tuo7q">
+        <dc:Bounds x="763" y="118" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_12vbkno_di" bpmnElement="EndEvent_12vbkno">
+        <dc:Bounds x="1062" y="140" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="990" y="180" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1f6ctui_di" bpmnElement="SequenceFlow_1f6ctui">
+        <di:waypoint x="290" y="48" />
+        <di:waypoint x="379" y="48" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="289.5" y="27" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ww5yxx_di" bpmnElement="SequenceFlow_0ww5yxx">
+        <di:waypoint x="479" y="48" />
+        <di:waypoint x="558" y="48" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="504" y="27" width="30" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zerjsn_di" bpmnElement="SequenceFlow_0zerjsn">
+        <di:waypoint x="608" y="48" />
+        <di:waypoint x="763" y="48" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="658" y="24" width="33" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0guhok7_di" bpmnElement="SequenceFlow_0guhok7">
+        <di:waypoint x="583" y="73" />
+        <di:waypoint x="583" y="158" />
+        <di:waypoint x="763" y="158" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="594" y="111" width="44" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0m416hs_di" bpmnElement="SequenceFlow_0m416hs">
+        <di:waypoint x="863" y="48" />
+        <di:waypoint x="923" y="48" />
+        <di:waypoint x="923" y="158" />
+        <di:waypoint x="1062" y="158" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="893" y="97" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_190f7dx_di" bpmnElement="SequenceFlow_190f7dx">
+        <di:waypoint x="863" y="158" />
+        <di:waypoint x="1062" y="158" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="917.5" y="137" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1hp0sv8_di" bpmnElement="DataInputAssociation_1hp0sv8">
+        <di:waypoint x="788" y="-60" />
+        <di:waypoint x="470" y="8" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0lwqt76_di" bpmnElement="DataOutputAssociation_0lwqt76">
+        <di:waypoint x="812" y="8" />
+        <di:waypoint x="811" y="-40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0az2zc9_di" bpmnElement="DataOutputAssociation_0az2zc9">
+        <di:waypoint x="859" y="120" />
+        <di:waypoint x="975" y="120" />
+        <di:waypoint x="975" y="-65" />
+        <di:waypoint x="838" y="-65" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,52 @@
+
+.custom-file-upload-hidden {
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+.custom-file-upload {
+    display: block;
+    width: auto;
+    font-size: 16px;
+    margin-top: 30px;
+    label :{
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+
+.file-upload-wrapper {
+    position: relative; 
+    margin-bottom: 5px;
+}
+.file-upload-input {
+    width:  300px;
+    color: #fff;
+    font-size: 16px;
+    padding: 11px 17px; 
+    border: none;
+    background-color: #c0392b; 
+    @include transition(all 0.2s ease-in); 
+    float: left; 
+    &:hover, &:focus { 
+        background-color: darken(#c0392b, 5);
+        outline: none; 
+    }
+}
+.file-upload-button {
+    cursor: pointer; 
+    display: inline-block; 
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 11px 20px; 
+    border: none;
+    margin-left: -1px;  
+    background-color: darken(#c0392b, 10); 
+    float: left; /* IE 9 Fix */
+    @include transition(all 0.2s ease-in);
+    &:hover {
+        background-color: darken(#c0392b, 20);
+    }
+}

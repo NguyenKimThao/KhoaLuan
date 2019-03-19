@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+    <setting>
+        <uriService>http://localhost:8080/business-webapp-creator/</uriService>
+        <webapp>
+            <database>
+                <driver>mysql</driver>
+                <host>localhost</host>
+                <port>3306</port>
+                <databaseName>camunda-extend</databaseName>
+                <username>root</username>
+                <password>admin</password>
+                <useSSL>false</useSSL>
+            </database>
+            <engine>
+                <uri>http://localhost:8080/engine-rest/</uri>
+            </engine>
+        </webapp>
+        <wordpress>
+            <database>
+                <driver>mysql</driver>
+                <host>localhost</host>
+                <port>3305</port>
+                <databaseName></databaseName>
+                <username>root</username>
+                <password></password>
+                <useSSL>false</useSSL>
+            </database>
+            <install>
+                <uri>http://localhost:8888/</uri>
+                <wpinstall>wp-quick-install</wpinstall>
+            </install>
+        </wordpress>
+    </setting>
+</root>

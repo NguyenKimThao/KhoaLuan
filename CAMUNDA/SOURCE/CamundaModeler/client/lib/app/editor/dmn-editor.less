@@ -1,0 +1,37 @@
+@import (less) "dmn-js-drd/assets/css/dmn-js-drd.css";
+@import (less) "dmn-js-decision-table/assets/css/dmn-js-decision-table.css";
+@import (less) "dmn-js-decision-table/assets/css/dmn-js-decision-table-controls.css";
+@import (less) "dmn-js-literal-expression/assets/css/dmn-js-literal-expression.css";
+
+.dmn-editor {
+  .warnings-overlay;
+
+  .flex-container(row);
+
+  flex-grow: 1;
+
+  overflow: hidden;
+
+  > .editor-container {
+    flex: 1;
+
+    position: relative;
+    outline: none;
+
+    > .editor-parent {
+
+      > div {
+        .full-size();
+      }
+
+      .viewer-container, 
+      .dmn-decision-table-container {
+        overflow: auto;
+        padding: 10px;
+        height: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+
+}
